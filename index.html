@@ -303,16 +303,93 @@
       return (
         <div className="flex flex-col md:flex-row flex-1 pt-4 max-w-7xl mx-auto">
           {/* Sidebar */}
-          <aside className="w-full md:w-64 p-4 bg-white border-b md:border-b-0 md:border-r border-gray-200">
-            <h3 className="text-sm font-medium mb-2">Max. Preis (pro Tag)</h3>
-            <input
-              type="range" min="0" max="100"
-              value={filters.maxPrice}
-              onChange={e=>onFilterChange({ maxPrice: Number(e.target.value) })}
-              className="w-full mb-1"
-            />
-            <div className="text-sm text-gray-600">Bis €{filters.maxPrice}</div>
-          </aside>
+         {/* … inside your ResultsPage render() … */}
+<aside className="w-full md:w-72 p-4 bg-white border-b md:border-b-0 md:border-r border-gray-200 text-sm space-y-4">
+  <h2 className="font-semibold mb-2">Filter (Demo-UI)</h2>
+
+  {/* 1. Preis-Slider (interaktiv) */}
+  <div>
+    <label className="block text-xs mb-1">Max. Preis (€)</label>
+    <input
+      type="range"
+      min="0" max="100"
+      value={filters.maxPrice}
+      onChange={e => onFilterChange({ maxPrice: +e.target.value })}
+      className="w-full"
+    />
+    <div className="text-xs text-gray-600">bis €{filters.maxPrice}</div>
+  </div>
+
+  {/* 2. Tageszeit */}
+  <FilterBlock title="Tageszeit" list={timeOptions} />
+
+  {/* 3. Kapazität (UI-Mock) */}
+  <div className="mt-4">
+    <label className="block text-xs font-medium mb-1">Kapazität</label>
+    <div className="flex space-x-2">
+      <input
+        type="number"
+        disabled
+        placeholder="Min"
+        className="w-16 border p-1 rounded text-gray-600"
+      />
+      <input
+        type="number"
+        disabled
+        placeholder="Max"
+        className="w-16 border p-1 rounded text-gray-600"
+      />
+    </div>
+  </div>
+
+  {/* 4. Produkt-Kategorie */}
+  <FilterBlock title="Kategorie" list={categoryOptions} />
+
+  {/* 5. Ausstattung */}
+  <FilterBlock title="Ausstattung" list={amenityOptions} />
+
+  {/* 6. Lage */}
+  <FilterBlock title="Lage" list={locationOptions} />
+
+  {/* 7. Mindest-Bewertung */}
+  <div className="mt-4">
+    <label className="block text-xs font-medium mb-1">Mindest-Bewertung</label>
+    <select disabled className="w-full border p-1 rounded text-gray-600">
+      <option>Alle</option>
+      {[1,2,3,4,5].map(s => <option key={s}>{s} Sterne</option>)}
+    </select>
+  </div>
+
+  {/* 8. Review-Count */}
+  <div className="mt-4">
+    <label className="block text-xs font-medium mb-1">Min. Reviews</label>
+    <input
+      type="number"
+      disabled
+      placeholder="Anzahl"
+      className="w-full border p-1 rounded text-gray-600"
+    />
+  </div>
+
+  {/* 9. Storno-Bedingungen */}
+  <FilterBlock title="Storno-Bedingungen" list={cancellationOptions} />
+
+  {/* 10. Sofort buchbar */}
+  <div className="mt-4 flex items-center">
+    <input type="checkbox" disabled className="mr-1" />
+    <label className="text-xs">Sofort buchbar</label>
+  </div>
+
+  {/* 11. Rabatte */}
+  <FilterBlock title="Rabatte" list={discountOptions} />
+
+  {/* 12. Barrierefrei */}
+  <div className="mt-4 flex items-center">
+    <input type="checkbox" disabled className="mr-1" />
+    <label className="text-xs">Barrierefrei</label>
+  </div>
+</aside>
+
 
           {/* Main Content */}
           <main className="flex-1 p-4 overflow-y-auto">
